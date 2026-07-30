@@ -12,3 +12,7 @@ env/
 *.log
 
 .DS_Store
+
+# Credenciales de Losant
+losant_config.py
+access-key-*.txt

@@ -60,3 +60,27 @@ Sumar una línea en `config.py` con su MAC y su clave (mismo procedimiento de
 arriba), y agregarlo también en `DEVICES` dentro de `leer_smartsolar.py` si
 hace falta filtrar por más de uno (ya soporta varios automáticamente, el
 diccionario `DEVICES` de `config.py` es compartido).
+
+## Publicar en Losant por MQTT
+
+`publicar_losant.py` toma los mismos datos de `leer_smartsolar.py` (reusa
+`victron_scanner.py`) y los publica como estado del dispositivo en Losant,
+usando la librería `losantmqtt`.
+
+```
+.venv/bin/python publicar_losant.py
+```
+
+Publica cada 30s por dispositivo (`INTERVALO_PUBLICACION` en el script),
+para no gastar de golpe la cuota mensual de mensajes de Losant.
+
+### Credenciales
+
+Van en `losant_config.py` (no se sube a git, está en `.gitignore`):
+
+```python
+DEVICE_ID = "..."
+ACCESS_KEY = "..."
+ACCESS_SECRET = "..."
+```
+
