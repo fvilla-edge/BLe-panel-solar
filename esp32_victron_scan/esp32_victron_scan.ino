@@ -39,7 +39,11 @@ void setup() {
 
     NimBLEDevice::init("");
     NimBLEScan* scan = NimBLEDevice::getScan();
-    scan->setScanCallbacks(&scanCallbacks);
+    // wantDuplicates=true: sin esto, NimBLE filtra por MAC y solo avisa la
+    // PRIMERA vez que ve cada dispositivo, aunque el contenido del anuncio
+    // cambie despues (que es exactamente lo que necesitamos: el SmartSolar
+    // manda datos nuevos cifrados en cada anuncio, con la misma MAC).
+    scan->setScanCallbacks(&scanCallbacks, true);
     scan->setActiveScan(false); // Instant Readout va en advertisements pasivos
     scan->setInterval(100);
     scan->setWindow(99);

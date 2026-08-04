@@ -71,6 +71,29 @@ screen /dev/ttyACM0 115200
 
 Salir de `screen`: `Ctrl+A` seguido de `k`, después confirmar con `y`.
 
+## Ver los datos ya decodificados (no el hex crudo)
+
+Desde la carpeta del proyecto, con el venv de Python que ya usan
+`leer_smartsolar.py`/`victron_scanner.py`:
+
+```bash
+.venv/bin/python leer_smartsolar_serial.py
+```
+
+Lee el `MAC=... DATA=<hex>` que manda el ESP32 por `/dev/ttyACM0`, lo
+desencripta con la clave de `config.py` (misma librería `victron-ble` de
+siempre) y muestra una lectura legible por pantalla cada 20 segundos:
+
+```
+[14:28:22] cb:ea:5b:96:33:6c  RSSI: -92 dBm
+    battery_charging_current: -1.6 A
+    battery_voltage: 12.74 V
+    charge_state: bulk
+    ...
+```
+
+Si el puerto es otro: `.venv/bin/python leer_smartsolar_serial.py /dev/ttyUSB0`.
+
 ## Notas
 
 - El RSSI suele verse débil (-90 a -100) porque el SmartSolar está lejos
